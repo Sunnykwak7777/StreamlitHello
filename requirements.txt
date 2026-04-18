@@ -1,0 +1,5 @@
+ydata-profiling
+streamlit
+numpy
+altair
+pandas
