@@ -44,10 +44,26 @@ appointment = st.slider(
     value = (time(11,30), time(12,45)))
 st.write("예약된 시간:", appointment)
 
-st.subheader('ㄴㄹ짜 및 시간 슬라이더')
+st.subheader('날짜 및 시간 슬라이더')
 start_time = st.slider(
     "언제 시작하시겠습니까?",
     value = datetime(2020, 1,1,9,30),
     format = "MM/DD/YY - hh:mm")
 st.write("시작시간:", start_time)
-                               
+
+#st.line_chart 사용법 --> altair_chart의 간단버전이고, 우리는 plotly를 쓰는게 좋다.
+st.header('라인차트')
+chart_data = pd.DataFrame(
+    np.random.randn(20,3),
+    columns = ['a','b', 'c']
+)
+st.line_chart(chart_data)
+
+#st.selectbox -->drop down 박스 만들기
+st.header('st.selectbox')
+option = st.selectbox(
+    '가장 좋아하는 색상은 무엇인가요?',
+    ('파랑', '빨강', '초록')
+)
+
+st.write('당신이 좋아하는 색상은', option)
