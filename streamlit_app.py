@@ -1,15 +1,19 @@
-#import streamlit as st     
-#st.header('st.button')
-#if st.button('Say hello'):
-#    st.write('Why hello there')
-#else:
-#    st.write('Goodbye')
-
+#import sys
+#!{sys.executable} -m pip install ydata-profiling
 import numpy as np
 import altair as alt
 import pandas as pd
 import streamlit as st
 from datetime import time, datetime
+from ydata_profiling import ProfileReport
+from streamlit.components.v1 import html
+ 
+st.header('st.button')
+if st.button('Say hello'):
+    st.write('Why hello there')
+else:
+    st.write('Goodbye')
+
 st.header('st.write')
 st.write('Hello, *World!* :sunglasses:')
 st.write(1234)
@@ -89,3 +93,9 @@ if coffee :
     st.write("좋아요! 여기 더 많은 coffee") 
 if cola :
     st.write("좋아요! 여기 더 많은 cola") 
+
+#streamlit_pandas_profiling은 Python 3.14 미지원으로 비활성화
+st.header('streamlit_pandas_profiling')
+df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
+pr = ProfileReport(df)
+html(pr.to_html(), height=600, scrolling=True)
