@@ -123,7 +123,7 @@ st.write("이 앱의 '.streamlit/config.toml' 파일 내용")
 
 st.code("""
 [theme]
-primarycolor = "#F39C12"
+primaryColor = "#F39C12"
 backgroundColor = "#2E86C1"
 secondaryBackgroundColor = "#AED6F1"
 textColor = "#FFFFFF"
