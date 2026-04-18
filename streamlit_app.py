@@ -7,7 +7,7 @@ from datetime import time, datetime
 st.set_page_config(layout = "wide")
 
 st.title('st.secrets')
-st.write(st.secrets['message'])
+st.write(st.secrets.get('message', '설정된 메시지가 없습니다.'))
 
 st.title('st.file_uploader')
 st.subheader('CSV 입력')
