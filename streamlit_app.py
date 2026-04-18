@@ -4,6 +4,7 @@ import pandas as pd
 import streamlit as st
 from datetime import time, datetime
 
+st.set_page_config(layout = "wide")
 
 st.title('st.secrets')
 st.write(st.secrets['message'])
@@ -20,8 +21,6 @@ if uploaded_file is not None:
     st.write(df.describe())
 else:
     st.info('CSV파일을 업로드하세요')
-
-st.set_page_config(layout = "wide")
 st.title("Streamlit 앱 레이아웃 구성하기")
 with st.expander('이 앱에 대하여'):
     st.write('이 앱은 streamlit앱을 다양한 방법을 보여줍니다.')
