@@ -111,3 +111,24 @@ st.subheader('수치형 컬럼 분포')
 num_cols = df.select_dtypes(include='number').columns.tolist()
 selected_col = st.selectbox('컬럼 선택', num_cols)
 st.bar_chart(df[selected_col].value_counts().sort_index())
+
+st.header('st.latex')
+st.latex(r'''
+    a + ar + a r^2 + a r^3 + \cdots + a r^{n-1}=
+         \sum_{k=0}^{n-1} ar^k = 
+         a \left(\frac{a-r^{n}}{1-r}\right)''')
+
+st.title('Streamlit 앱의 테마 사용자 정의하기')
+st.write("이 앱의 '.streamlit/config.toml' 파일 내용")
+
+st.code("""
+[theme]
+primarycolor = "#F39C12"
+backgroundColor = "#2E86C1"
+secondaryBackgroundColor = "#AED6F1"
+textColor = "#FFFFFF"
+font = "monospace"
+""")
+
+number = st.sidebar.slider('숫자를 선택하세요:', 0, 10, 5)
+st.write('슬라이더 위젯에서 선택된 숫자:', number)
