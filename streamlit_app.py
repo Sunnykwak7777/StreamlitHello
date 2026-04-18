@@ -3,9 +3,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 from datetime import time, datetime
-from ydata_profiling import ProfileReport
-from streamlit.components.v1 import html
- 
+
 st.header('st.button')
 if st.button('Say hello'):
     st.write('Why hello there')
@@ -92,7 +90,24 @@ if coffee :
 if cola :
     st.write("좋아요! 여기 더 많은 cola") 
 
-st.header('streamlit_pandas_profiling')
+st.header('데이터 프로파일링')
 df = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/penguins_cleaned.csv')
-pr = ProfileReport(df)
-html(pr.to_html(), height=600, scrolling=True)
+
+st.subheader('데이터 미리보기')
+st.dataframe(df)
+
+st.subheader('기본 통계')
+st.dataframe(df.describe())
+
+st.subheader('컬럼 정보')
+col_info = pd.DataFrame({
+    '데이터타입': df.dtypes,
+    '결측값 수': df.isnull().sum(),
+    '결측값 비율(%)': (df.isnull().sum() / len(df) * 100).round(2)
+})
+st.dataframe(col_info)
+
+st.subheader('수치형 컬럼 분포')
+num_cols = df.select_dtypes(include='number').columns.tolist()
+selected_col = st.selectbox('컬럼 선택', num_cols)
+st.bar_chart(df[selected_col].value_counts().sort_index())
