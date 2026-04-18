@@ -67,3 +67,25 @@ option = st.selectbox(
 )
 
 st.write('당신이 좋아하는 색상은', option)
+
+#st.multiselect -->drop down 박스 만들기
+st.header('st.multiselect')
+options = st.multiselect(
+    '가장 좋아하는 색상은 무엇인가요?',
+    ['초록', '노랑', '빨강', '파랑'],
+    ['노랑', '빨강'])   #기본값
+st.write('당신이 선택한 색상:', options)
+
+#st.checkbox
+st.header('st.checkbox')
+st.write('주문하고 싶은 것이 무엇인가요?')
+icecream = st.checkbox('아이스크림')
+coffee = st.checkbox('커피')
+cola = st.checkbox('콜라')
+
+if icecream :
+    st.write("좋아요! 여기 더 많은 icecream")
+if coffee :
+    st.write("좋아요! 여기 더 많은 coffee") 
+if cola :
+    st.write("좋아요! 여기 더 많은 cola") 
