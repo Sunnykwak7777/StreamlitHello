@@ -35,22 +35,5 @@ with col3:
         st.write(f'🍴 **{user_food}**은 당신이 좋아하는 **음식**입니다!')
     else:
         st.write('👈 가장 좋아하는 **음식**을 선택 해 주세요!')
-        
 
-
-st.title('st.secrets')
-st.write(st.secrets.get('message', '설정된 메시지가 없습니다.'))
-
-st.title('st.file_uploader')
-st.subheader('CSV 입력')
-uploaded_file = st.file_uploader("파일선택")
-
-if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
-    st.subheader('DataFrame')
-    st.write(df)
-    st.subheader('기술 통계')
-    st.write(df.describe())
-else:
-    st.info('CSV파일을 업로드하세요')
 
