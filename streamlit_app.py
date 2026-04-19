@@ -24,7 +24,7 @@ else:
 st.title("Streamlit 앱 레이아웃 구성하기")
 with st.expander('이 앱에 대하여'):
     st.write('이 앱은 streamlit앱을 다양한 방법을 보여줍니다.')
-    st.image('https://streamlit.io/images/brand/images/brand/streamlit-logo-secondary-colormark-darktext.png', width=250)
+    st.image('https://streamlit.io/images/brand/streamlit-logo-secondary-colormark-darktext.png', width=250)
 
 st.sidebar.header('입력')
 user_name = st.sidebar.text_input('당신의 이름으 무엇인가요?')
