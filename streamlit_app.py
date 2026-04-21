@@ -3,7 +3,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 from datetime import time, datetime
-import time
+import time as time_module
 
 st.set_page_config(layout = "wide")
 st.title("Streamlit 앱 레이아웃 구성하기")
@@ -164,7 +164,7 @@ with st.expander('이 앱에 대하여'):
     st.write("'st.progress'명령어를 사용하여 Streamlit앱에서 계산의 진행 상태를 표시할 수 있습니다.")
 my_bar = st.progress(0)
 for percent_complete in range(100):
-    time.sleep(0.05)
+    time_module.sleep(0.05)
     my_bar.progress(percent_complete+1)
 
 st.balloons()
