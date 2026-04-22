@@ -16,8 +16,7 @@ def load_data_a():
     columns=['a', 'b', 'c', 'd', 'e']
   )
   return df
-@st.cache_data()
-def slow_function(x):
+def slow_function_a(x):
   time.sleep(3)  #시간이 오래 걸리는 작업
   return x*10
 
@@ -26,8 +25,6 @@ a0 = time.time()
 st.write(load_data_a())
 a1 = time.time()
 st.info(a1-a0)
-result = slow_function(5)
-st.write("결과:", result)
 
 # 캐시 미사용
 st.subheader('st.cache 미사용')
@@ -38,7 +35,17 @@ def load_data_b():
     columns=['a', 'b', 'c', 'd', 'e']
   )
   return df
+
+def slow_function_b(x):
+  time.sleep(3)  #시간이 오래 걸리는 작업
+  return x*10
+
 b0 = time.time()
 st.write(load_data_b())
 b1 = time.time()
 st.info(b1-b0)
+
+result = slow_function_a(5)
+st.write("결과a:", result)
+result = slow_function_b(5)
+st.write("결과b:", result)
