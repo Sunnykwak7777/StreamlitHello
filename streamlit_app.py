@@ -18,7 +18,7 @@ def load_data_a():
   )
   return df
 def load_data():
-  return pd.read_csv("my_data.csv")
+  return pd.read_csv("d:\생성 AI 응용 서비스 개발자 양성 과정\AI STUDY\StreamlitHello\my_data.csv")
 def slow_function(x):
   time.sleep(3)  #시간이 오래 걸리는 작업
   return x*10
@@ -34,7 +34,7 @@ df = load_data()
 st.dataframe(df)
 result = slow_function(5)
 st.write("결과:", result)
-df = load_csv("my_data.csv")
+df = load_csv("d:\생성 AI 응용 서비스 개발자 양성 과정\AI STUDY\StreamlitHello\my_data.csv")
 st.dataframe(df)
 
 # 캐시 미사용
