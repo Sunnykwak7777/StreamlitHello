@@ -212,38 +212,31 @@ form.form_submit_button('제출')
 
 st.write('선택된 값: ', selected_val)
 
+st.title('st.experimental_get_query_params')
 
-st.title('st.form')
+with st.expander('이 앱에 대하여'):
+  st.write("`st.experimental_get_query_params`는 사용자 브라우저의 URL에서 직접 쿼리 매개변수를 검색할 수 있게 해줍니다.")
 
-# 'with' 표기법을 사용한 전체 예시
-st.header('1. `with` 표기법 사용 예시')
-st.subheader('커피 머신')
+# 1. 지침
+st.header('1. 지침')
+st.markdown('''
+인터넷 브라우저의 URL 바에서 다음을 추가하세요:
+`?firstname=Jack&surname=Beanstalk`
+기본 URL `http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/` 뒤에 추가하여
+`http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/?firstname=Jack&surname=Beanstalk`가 되도록 합니다.
+''')
 
-with st.form('my_form'):
-    st.subheader('**커피 주문하기**')
 
-    # 입력 위젯
-    coffee_bean_val = st.selectbox('커피콩', ['아라비카', '로부스타'])
-    coffee_roast_val = st.selectbox('커피 로스팅', ['라이트', '미디엄', '다크'])
-    brewing_val = st.selectbox('추출 방법', ['에어로프레스', '드립', '프렌치 프레스', '모카 포트', '사이폰'])
-    serving_type_val = st.selectbox('서빙 형식', ['핫', '아이스', '프라페'])
-    milk_val = st.select_slider('우유 정도', ['없음', '낮음', '중간', '높음'])
-    owncup_val = st.checkbox('자신의 컵 가져오기')
+# 2. st.experimental_get_query_params의 내용
+st.header('2. st.experimental_get_query_params의 내용')
+st.write(st.experimental_get_query_params())
 
-    # 모든 양식은 제출 버튼을 가져야 함
-    submitted = st.form_submit_button('제출')
 
-if submitted:
-    st.markdown(f'''
-        ☕ 주문하신 내용:
-        - 커피콩: `{coffee_bean_val}`
-        - 커피 로스팅: `{coffee_roast_val}`
-        - 추출 방법: `{brewing_val}`
-        - 서빙 형식: `{serving_type_val}`
-        - 우유: `{milk_val}`
-        - 자신의 컵 가져오기: `{owncup_val}`
-        ''')
-else:
-    st.write('☝️ 주문하세요!')
+# 3. URL에서 정보 검색 및 표시
+st.header('3. URL에서 정보 검색 및 표시')
 
+firstname = st.experimental_get_query_params()['firstname'][0]
+surname = st.experimental_get_query_params()['surname'][0]
+
+st.write(f'안녕하세요 **{firstname} {surname}**, 어떠세요?')
 
