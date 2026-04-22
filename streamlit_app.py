@@ -20,12 +20,18 @@ def load_data_a():
 def slow_function_a(x):
   time.sleep(3)  #시간이 오래 걸리는 작업
   return x*10
-
+@st.cache_data()
+def load_data():
+  return pd.read_csv("my_data.csv")
 
 a0 = time.time()
 st.write(load_data_a())
 a1 = time.time()
 st.info(a1-a0)
+
+df = load_data()
+st.dataframe(df)
+st.write(df)
 
 # 캐시 미사용
 st.subheader('st.cache 미사용')
