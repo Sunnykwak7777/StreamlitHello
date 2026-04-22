@@ -222,10 +222,10 @@ st.header('1. 지침')
 st.markdown('''
 인터넷 브라우저의 URL 바에서 다음을 추가하세요:
 `?firstname=Jack&surname=Beanstalk`
-기본 URL `http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/` 뒤에 추가하여
-`http://share.streamlit.io/dataprofessor/st.experimental_get_query_params/?firstname=Jack&surname=Beanstalk`가 되도록 합니다.
+기본 URL `http://share.streamlit.io/dataprofessor/st.get_query_params/` 뒤에 추가하여
+`http://share.streamlit.io/dataprofessor/st.query_params/?firstname=Jack&surname=Beanstalk`가 되도록 합니다.
 ''')
-
+# 원인: st.experimental_get_query_params()는 Streamlit 최신 버전에서 제거된 함수입니다. 대신 st.query_params를 사용해야 합니다. 또한 새 API는 값을 리스트가 아닌 문자열로 직접 반환합니다.
 
 # 2. st.query_params의 내용
 st.header('2. st.query_params의 내용')
@@ -235,11 +235,10 @@ st.write(dict(st.query_params))
 # 3. URL에서 정보 검색 및 표시
 st.header('3. URL에서 정보 검색 및 표시')
 
-firstname = st.query_params.get('firstname', '')
+firstname = st.query_params.get('firstname','')
 surname = st.query_params.get('surname', '')
 
 if firstname and surname:
     st.write(f'안녕하세요 **{firstname} {surname}**, 어떠세요?')
 else:
     st.info('URL에 ?firstname=이름&surname=성 을 추가해 주세요.')
-
