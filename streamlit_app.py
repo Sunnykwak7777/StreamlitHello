@@ -16,6 +16,7 @@ def load_data_a():
     columns=['a', 'b', 'c', 'd', 'e']
   )
   return df
+@st.cache_data()
 def slow_function_a(x):
   time.sleep(3)  #시간이 오래 걸리는 작업
   return x*10
