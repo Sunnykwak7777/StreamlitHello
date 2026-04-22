@@ -7,7 +7,6 @@ import time
 st.title('st.cache_data')
 
 # 캐시 사용
-
 st.subheader('st.cache_data 사용')
 
 @st.cache_data()
