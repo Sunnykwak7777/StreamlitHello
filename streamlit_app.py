@@ -222,8 +222,8 @@ st.header('1. 지침')
 st.markdown('''
 인터넷 브라우저의 URL 바에서 다음을 추가하세요:
 `?firstname=Jack&surname=Beanstalk`
-기본 URL `http://share.streamlit.io/dataprofessor/st.get_query_params/` 뒤에 추가하여
-`http://share.streamlit.io/dataprofessor/st.query_params/?firstname=Jack&surname=Beanstalk`가 되도록 합니다.
+기본 URL `https://whitehairwitch.streamlit.app/` 뒤에 추가하여
+`https://whitehairwitch.streamlit.app/?firstname=Jack&surname=Beanstalk`가 되도록 합니다.
 ''')
 # 원인: st.experimental_get_query_params()는 Streamlit 최신 버전에서 제거된 함수입니다. 대신 st.query_params를 사용해야 합니다. 또한 새 API는 값을 리스트가 아닌 문자열로 직접 반환합니다.
 
