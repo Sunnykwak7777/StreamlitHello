@@ -227,16 +227,19 @@ st.markdown('''
 ''')
 
 
-# 2. st.experimental_get_query_params의 내용
-st.header('2. st.experimental_get_query_params의 내용')
-st.write(st.experimental_get_query_params())
+# 2. st.query_params의 내용
+st.header('2. st.query_params의 내용')
+st.write(dict(st.query_params))
 
 
 # 3. URL에서 정보 검색 및 표시
 st.header('3. URL에서 정보 검색 및 표시')
 
-firstname = st.experimental_get_query_params()['firstname'][0]
-surname = st.experimental_get_query_params()['surname'][0]
+firstname = st.query_params.get('firstname', '')
+surname = st.query_params.get('surname', '')
 
-st.write(f'안녕하세요 **{firstname} {surname}**, 어떠세요?')
+if firstname and surname:
+    st.write(f'안녕하세요 **{firstname} {surname}**, 어떠세요?')
+else:
+    st.info('URL에 ?firstname=이름&surname=성 을 추가해 주세요.')
 
