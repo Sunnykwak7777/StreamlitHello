@@ -21,7 +21,7 @@ st.write(load_data_a())
 a1 = time.time()
 st.info(a1-a0)
 
-df = load_data()
+df = load_data_a()
 st.dataframe(df)
 st.write(df)
 
