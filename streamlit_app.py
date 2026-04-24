@@ -4,7 +4,6 @@ import pandas as pd
 import streamlit as st
 import time
 
-
 csv_url = "https://raw.githubusercontent.com/Sunnykwak7777/StreamlitHello/main/my__data.csv"
 st.title('st.cache_data')
 
