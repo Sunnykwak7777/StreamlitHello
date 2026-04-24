@@ -17,11 +17,11 @@ def load_data_a(url):
     return df
 
 a0 = time.time()
-st.write(load_data_a())
+st.write(load_data_a(csv_url))
 a1 = time.time()
 st.info(a1-a0)
 
-df = load_data_a()
+df = load_data_a(csv_url)
 st.dataframe(df)
 st.write(df)
 
@@ -34,6 +34,6 @@ def load_data_b(url):
     return df
 
 b0 = time.time()
-st.write(load_data_b())
+st.write(load_data_b(csv_url))
 b1 = time.time()
 st.info(b1-b0)
