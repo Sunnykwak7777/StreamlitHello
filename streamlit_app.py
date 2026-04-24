@@ -13,7 +13,7 @@ st.subheader('st.cache_data 사용')
 @st.cache_data()
 def load_data_a(url):
     # pandas를 이용해 csv 파일을 읽어옵니다.
-    df = pd.read_csv(url)
+    df = pd.read_csv(url, encoding='UTF-8')
     return df
 
 a0 = time.time()
@@ -30,7 +30,7 @@ st.subheader('st.cache 미사용')
 
 def load_data_b(url):
     # pandas를 이용해 csv 파일을 읽어옵니다.
-    df = pd.read_csv(url)
+    df = pd.read_csv(url, encoding='UTF-8')
     return df
 
 b0 = time.time()
