@@ -181,12 +181,18 @@ st.title("⚽ Boared API앱")
 st.sidebar.header('입력')
 selected_type = st.sidebar.selectbox('활동 유형 선택', ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"])
 #https://bored-api.appbrewery.com/
-suggested_activity_url = f"https://bored-api.appbrewery.com/api/activity?type={selected_type}"
+suggested_activity_url = f"https://bored-api.appbrewery.com/filter?type={selected_type}"
 
 try:
     json_data = requests.get(suggested_activity_url, timeout=5)
     json_data.raise_for_status()
-    suggested_activity = json_data.json()
+    result = json_data.json()
+
+    # /filter 엔드포인트는 리스트를 반환하므로 첫 번째 항목 사용
+    if isinstance(result, list):
+        suggested_activity = result[0]
+    else:
+        suggested_activity = result
 
     c1, c2 = st.columns(2)
     with c1:
