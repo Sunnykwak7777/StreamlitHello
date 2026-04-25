@@ -4,3 +4,4 @@ altair
 pandas
 requests
 xlsxwriter
+joblib
