@@ -6,6 +6,9 @@ import time
 import requests
 import xml.etree.ElementTree as ET
 from io import BytesIO
+import joblib
+import sqlite3
+import xlsxwriter
 
 csv_url = "https://raw.githubusercontent.com/Sunnykwak7777/StreamlitHello/main/my__data.csv"
 st.title('st.cache_data')
@@ -111,3 +114,21 @@ if not df.empty:
     )
 else:
     st.warning("조회된 데이터가 없습니다. API 키나 파라미터를 확인해주세요.")
+
+# 머신러닝 모델 캐싱
+@st.cache_resource
+def load_model():
+    return joblib.load("model.pkl")
+
+model = load_model()
+prediction = model.predict([[1,2,3]])
+st.write(prediction)
+
+@st.cache_resource
+def get_connection():
+    return sqlite3.connect("my_database.db")
+
+conn = get_connection()
+df = pd.read_sql("SELECT * FROM users", conn)
+
+st.dataframe(df)
