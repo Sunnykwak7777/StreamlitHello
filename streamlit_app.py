@@ -46,7 +46,7 @@ st.info(b1-b0)
 st.set_page_config(page_title="아파트 실거래가 조회 보드", layout="wide")
 
 # 2. API 설정 정보
-API_URL = "http://apis.data.go.kr/1613000/RTMSDataSvcSHTrade/getRTMSDataSvcSHTrade"
+API_URL = "https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev"
 SERVICE_KEY = "685c2b993815dce3876298374fbcb215a7ed176d49c6579cdb1e7bc84b534f1b"
 
 st.title("🏙️ 국토교통부 아파트 실거래가 조회")
@@ -76,7 +76,7 @@ def fetch_apartment_data():
             item_dict = {
                 '아파트': item.findtext('aptNm'),
                 '금액(만원)': item.findtext('dealAmount'),
-                '전용면적(㎡)': item.findtext('excluArea'),
+                '전용면적(㎡)': item.findtext('excluUseAr'),
                 '층': item.findtext('floor'),
                 '년': item.findtext('dealYear'),
                 '월': item.findtext('dealMonth'),
