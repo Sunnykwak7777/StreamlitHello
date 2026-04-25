@@ -45,11 +45,11 @@ st.info(b1-b0)
 st.set_page_config(page_title="아파트 실거래가 조회 보드", layout="wide")
 
 # 2. API 설정 정보
-API_URL = "http://openapi.molit.go.kr/OpenAPI_ToolInstallPackage/service/rest/RTMSDataSvc/getRTMSDataSvcAptTradeDev"
+API_URL = "http://apis.data.go.kr/1613000/RTMSDataSvcSHTrade/getRTMSDataSvcSHTrade"
 SERVICE_KEY = "685c2b993815dce3876298374fbcb215a7ed176d49c6579cdb1e7bc84b534f1b"
 
 st.title("🏙️ 국토교통부 아파트 실거래가 조회")
-st.info("서울시 종로구(11110)의 2026년 3월 실거래 내역을 가져옵니다.")
+st.info("서울시(11110)의 2026년 3월 실거래 내역을 가져옵니다.")
 
 # 3. 데이터 로드 함수
 def fetch_apartment_data():
@@ -58,6 +58,7 @@ def fetch_apartment_data():
         'serviceKey': SERVICE_KEY,
         'LAWD_CD': '11110',      # 지역코드 (종로구)
         'DEAL_YMD': '202603',    # 계약년월
+        'pageNo' : '1',
         'numOfRows': '200'       # 가져올 행 수
     }
     
