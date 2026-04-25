@@ -9,6 +9,9 @@ from io import BytesIO
 import xlsxwriter
 import joblib
 import sqlite3
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 csv_url = "https://raw.githubusercontent.com/Sunnykwak7777/StreamlitHello/main/my__data.csv"
 st.title('st.cache_data')
@@ -87,7 +90,7 @@ def fetch_apartment_data():
                 '법정동': item.findtext('umdNm')
             }
             items_list.append(item_dict)
-        st.sucess("처리가 모두 끝났습니다.")   
+        st.success("처리가 모두 끝났습니다.")   
         return pd.DataFrame(items_list)
     except Exception as e:
         st.error(f"데이터를 가져오는데 실패했습니다: {e}")
@@ -120,7 +123,7 @@ st.subheader("머신러닝 모델 예측 (st.cache_resource)")
 
 @st.cache_resource
 def load_model():
-    return joblib.load("model.pkl")
+    return joblib.load(os.path.join(BASE_DIR, "model.pkl"))
 
 model = load_model()
 prediction = model.predict([[1, 2, 3]])
@@ -131,7 +134,7 @@ st.subheader("DB 조회 (st.cache_resource)")
 
 @st.cache_resource
 def get_connection():
-    return sqlite3.connect("my_database.db", check_same_thread=False)
+    return sqlite3.connect(os.path.join(BASE_DIR, "my_database.db"), check_same_thread=False)
 
 conn = get_connection()
 df = pd.read_sql("SELECT * FROM users", conn)
@@ -169,9 +172,9 @@ with st.spinner("전체 작업 진행중..."):
     status_text = st.empty()  #텍스트 덮어쓰기 용 공간확보
     for i in range(5):
         status_text.write(f"       Step {i+1}/5 : 데이터 준비중...   ")
-        TimeoutError.sleep(1)
+        time.sleep(1)
         progress.progress((i+1)*20)
-st.sucess("처리가 모두 끝났습니다")
+st.success("처리가 모두 끝났습니다")
         
 # st.session_state()
 st.title("⚽ Boared API앱")
@@ -179,26 +182,36 @@ st.sidebar.header('입력')
 selected_type = st.sidebar.selectbox('활동 유형 선택', ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"])
 #https://bored-api.appbrewery.com/
 suggested_activity_url = f"https://bored-api.appbrewery.com/api/activity?type={selected_type}"
-json_data = requests.get(suggested_activity_url)
-suggested_activity = json_data.json()
 
-c1, c2 = st.COLUMNS(2)
-with c1:
-    with st.expander("이 앱에 대하여"):
-        st.write("지루하신가요? **Boared API앱**은 지루할 때 할 수 있는 일는 활동을 제안합니다. 이 앱은 Boared API에 의해 구동됩니다.")
-with c2:
-    with st.expander("JSON 데이터"):
-        st.write(suggested_activity)
-st.header("제안된 활동")
-st.info(suggested_activity['activity'])
+try:
+    json_data = requests.get(suggested_activity_url, timeout=5)
+    json_data.raise_for_status()
+    suggested_activity = json_data.json()
 
-col1, col2, col3 = st.columns(3)
-with col1:
-    st.metric(label='참가자 수', value=suggested_activity['participants'], delta='')
-with col2:
-    st.metric(label='활동유형', value=suggested_activity['type'].capitalize(), delta='')
-with col3:
-    st.metric(label='참가자 수', value=suggested_activity['price'], delta='')
+    c1, c2 = st.columns(2)
+    with c1:
+        with st.expander("이 앱에 대하여"):
+            st.write("지루하신가요? **Boared API앱**은 지루할 때 할 수 있는 일는 활동을 제안합니다. 이 앱은 Boared API에 의해 구동됩니다.")
+    with c2:
+        with st.expander("JSON 데이터"):
+            st.write(suggested_activity)
+    st.header("제안된 활동")
+    st.info(suggested_activity['activity'])
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric(label='참가자 수', value=suggested_activity['participants'], delta='')
+    with col2:
+        st.metric(label='활동유형', value=suggested_activity['type'].capitalize(), delta='')
+    with col3:
+        st.metric(label='가격', value=suggested_activity['price'], delta='')
+
+except requests.exceptions.ConnectionError:
+    st.error("Bored API 서버에 연결할 수 없습니다. 서버가 종료되었거나 네트워크를 확인해주세요.")
+except requests.exceptions.JSONDecodeError:
+    st.error(f"API 응답을 JSON으로 파싱할 수 없습니다. (HTTP {json_data.status_code})")
+except Exception as e:
+    st.error(f"오류가 발생했습니다: {e}")
 
 
 #model.pkl은 어떻게 만들었어?
