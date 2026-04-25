@@ -65,7 +65,7 @@ def fetch_apartment_data():
         'pageNo' : '1',
         'numOfRows': '200'       # 가져올 행 수
     }
-    
+
     try:
         # API 호출
         response = requests.get(API_URL, params=params)
@@ -87,7 +87,7 @@ def fetch_apartment_data():
                 '법정동': item.findtext('umdNm')
             }
             items_list.append(item_dict)
-            
+        st.sucess("처리가 모두 끝났습니다.")   
         return pd.DataFrame(items_list)
     except Exception as e:
         st.error(f"데이터를 가져오는데 실패했습니다: {e}")
@@ -155,3 +155,73 @@ with col2:
 
 st.header('출력')
 st.write("st.session_state 객체:", st.session_state)
+
+# st.spinner()
+
+st.header("데이터 처리 진행 상황")
+st.write("데이터를 불러옵니다...")
+with st.spinner("잠시만 기다려 주세요...") :
+    time.sleep(5)
+st.success("데이타로딩 완료!")
+
+with st.spinner("전체 작업 진행중..."):
+    progress = st.progress(0)
+    status_text = st.empty()  #텍스트 덮어쓰기 용 공간확보
+    for i in range(5):
+        status_text.write(f"       Step {i+1}/5 : 데이터 준비중...   ")
+        TimeoutError.sleep(1)
+        progress.progress((i+1)*20)
+st.sucess("처리가 모두 끝났습니다")
+        
+# st.session_state()
+st.title("⚽ Boared API앱")
+st.sidebar.header('입력')
+selected_type = st.sidebar.selectbox('활동 유형 선택', ["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"])
+#https://bored-api.appbrewery.com/
+suggested_activity_url = f"https://bored-api.appbrewery.com/api/activity?type={selected_type}"
+json_data = requests.get(suggested_activity_url)
+suggested_activity = json_data.json()
+
+c1, c2 = st.COLUMNS(2)
+with c1:
+    with st.expander("이 앱에 대하여"):
+        st.write("지루하신가요? **Boared API앱**은 지루할 때 할 수 있는 일는 활동을 제안합니다. 이 앱은 Boared API에 의해 구동됩니다.")
+with c2:
+    with st.expander("JSON 데이터"):
+        st.write(suggested_activity)
+st.header("제안된 활동")
+st.info(suggested_activity['activity'])
+
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.metric(label='참가자 수', value=suggested_activity['participants'], delta='')
+with col2:
+    st.metric(label='활동유형', value=suggested_activity['type'].capitalize(), delta='')
+with col3:
+    st.metric(label='참가자 수', value=suggested_activity['price'], delta='')
+
+
+#model.pkl은 어떻게 만들었어?
+#import joblib
+#import numpy as np
+#from sklearn.linear_model import LinearRegression
+
+## 학습 데이터 (특성 3개)
+#X = np.array([[1,2,3],[4,5,6],[7,8,9],[2,3,4],[5,6,7]])
+#y = np.array([10, 25, 40, 15, 30])
+
+## 선형회귀 모델 학습
+#model = LinearRegression()
+#model.fit(X, y)
+
+## 파일로 저장
+#joblib.dump(model, 'model.pkl')
+#핵심 개념:
+
+#단계	설명
+#LinearRegression()	scikit-learn의 선형회귀 모델 생성
+#model.fit(X, y)	X(입력 3개 특성), y(정답값)으로 학습
+#joblib.dump(model, 'model.pkl')	학습된 모델을 파일로 직렬화(저장)
+#joblib.load('model.pkl')	저장된 모델을 불러와서 재사용
+#.pkl은 Python의 pickle 형식으로, 객체를 바이트로 직렬화한 파일입니다. joblib은 numpy 배열이 포함된 모델을 pickle보다 효율적으로 저장해주기 때문에 머신러닝에서 주로 사용됩니다.
+#실제 서비스에서는 이 자리에 직접 학습한 모델(예: 집값 예측, 이미지 분류 등)의 .pkl 파일을 넣으면 됩니다.
