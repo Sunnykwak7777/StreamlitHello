@@ -3,6 +3,7 @@ import altair as alt
 import pandas as pd
 import streamlit as st
 import time
+import requests
 import xml.etree.ElementTree as ET
 from io import BytesIO
 
