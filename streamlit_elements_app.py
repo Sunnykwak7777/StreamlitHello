@@ -31,7 +31,7 @@ with st.sidebar:
 # Nivo Bump 차트가 데이터를 그리기 위해 읽을 것입니다.
 
 if "data" not in st.session_state:
-    st.session_state.data = Path("data.json").read_text()
+    st.session_state.data = (Path(__file__).parent / "data.json").read_text()
 
 # 기본 대시보드 레이아웃을 정의합니다.
 # 대시보드 그리드는 기본적으로 12개의 열을 가지고 있습니다.
