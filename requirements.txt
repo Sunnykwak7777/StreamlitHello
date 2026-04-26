@@ -11,3 +11,6 @@ streamlit-shap
 shap
 xgboost
 matplotlib
+streamlit-option-menu
+streamlit-tags
+streamlit-aggrid

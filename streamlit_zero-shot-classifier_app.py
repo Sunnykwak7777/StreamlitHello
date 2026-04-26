@@ -1,6 +1,9 @@
 # Import Streamlit and Pandas
 import streamlit as st
 import pandas as pd
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent
 
 # Import for API calls
 import requests
@@ -55,10 +58,9 @@ c1, c2 = st.columns([0.4, 2])
 
 with c1:
 
-    st.image(
-        "logo.png",
-        width=110,
-    )
+    logo_path = BASE_DIR / "logo.png"
+    if logo_path.exists():
+        st.image(str(logo_path), width=110)
 
 with c2:
 
@@ -66,9 +68,9 @@ with c2:
     st.title("Zero-Shot Text Classifier")
 
 
-st.sidebar.image(
-    "30days_logo.png",
-)
+logo_30days_path = BASE_DIR / "30days_logo.png"
+if logo_30days_path.exists():
+    st.sidebar.image(str(logo_30days_path))
 
 st.write("")
 
@@ -155,7 +157,13 @@ def main():
 
 if selected == "Demo (5 phrases max)":
 
-    API_KEY = st.secrets["API_KEY"]
+    API_KEY = st.secrets.get("API_KEY", "")
+    if not API_KEY:
+        st.warning("⚠️ HuggingFace API 키가 설정되지 않았습니다.  \n"
+                   "`.streamlit/secrets.toml` 파일에 `API_KEY = \"your_key\"`를 입력하거나,  \n"
+                   "사이드바에서 **Unlocked Mode**를 선택해 직접 입력하세요.  \n"
+                   "API 키는 https://huggingface.co/settings/tokens 에서 발급받을 수 있습니다.")
+        st.stop()
 
     API_URL = (
         "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
@@ -321,7 +329,7 @@ if selected == "Demo (5 phrases max)":
 
         with cs:
 
-            @st.cache
+            @st.cache_data
             def convert_df(df):
                 # IMPORTANT: Cache the conversion to prevent computation on every rerun
                 return df.to_csv().encode("utf-8")
@@ -505,7 +513,7 @@ elif selected == "Unlocked Mode":
 
             with cs:
 
-                @st.cache
+                @st.cache_data
                 def convert_df(df):
                     # IMPORTANT: Cache the conversion to prevent computation on every rerun
                     return df.to_csv().encode("utf-8")
