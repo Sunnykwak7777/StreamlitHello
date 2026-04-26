@@ -6,3 +6,4 @@ requests
 xlsxwriter
 joblib
 scikit-learn
+streamlit-elements
