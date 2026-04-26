@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from streamlit_shap import st_shap
 import shap
@@ -8,9 +9,16 @@ import pandas as pd
 
 st.set_page_config(layout="wide")
 
+# Streamlit Cloud의 홈 디렉토리는 쓰기 권한이 없으므로 /tmp로 변경
+os.environ['HOME'] = '/tmp'
+
 @st.cache_data
 def load_data():
     return shap.datasets.adult()
+
+@st.cache_data
+def load_display_data():
+    return shap.datasets.adult(display=True)
 
 @st.cache_data
 def load_model(X, y):
@@ -37,7 +45,7 @@ with st.expander('앱에 대하여'):
 
 st.header('입력 데이터')
 X, y = load_data()
-X_display, y_display = shap.datasets.adult(display=True)
+X_display, y_display = load_display_data()
 
 with st.expander('데이터에 대하여'):
     st.write('예시 데이터셋으로 성인 인구 조사 데이터를 사용합니다.')
@@ -68,3 +76,8 @@ with st.expander('포스 플롯'):
     st_shap(shap.force_plot(explainer.expected_value, shap_values[0,:], X_display.iloc[0,:]), height=200, width=1000)
     st.subheader('첫 천 번째 데이터 인스턴스')
     st_shap(shap.force_plot(explainer.expected_value, shap_values[:1000,:], X_display.iloc[:1000,:]), height=400, width=1000)
+
+# prmissionError on os.makedirs	: shap이 ~/.data/shap/에 캐시 저장 시도하지만 Streamlit Cloud의 홈 디렉토리는 쓰기 불가 
+# ==> 해결 	os.environ['HOME'] = '/tmp'로 쓰기 가능한 경로로 변경
+# shap.datasets.adult(display=True) : 직접 호출	같은 이유로 동일한 오류 발생 가능	
+# @st.cache_data를 붙인 load_display_data() 함수로 감쌈
