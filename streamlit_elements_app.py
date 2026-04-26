@@ -224,3 +224,11 @@ with elements("demo"):
                 # 여기에서 확인할 수 있습니다: https://github.com/cookpete/react-player#props
 
                 media.Player(url=media_url, width="100%", height="100%", controls=True)
+
+# 비동기/멀티스레딩 미지원 --> 지원으로 발전함(현재)
+# 모듈화/컴포넌트 구조 부족 --> 지원으로 발전함(현재)
+# 다이나믹 네비게이션 구현 가능
+# LLM, CHAT하는 것도 구현이 가능되어짐
+# Cashing, ~~~ 등등 docementation에서 잘~~ 살펴서 해보셩
+# 라우팅 기능 가능해짐
+# 모바일 최적화는 되어져 있으나, 브러우저에서만 표시됨
