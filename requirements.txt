@@ -7,4 +7,6 @@ xlsxwriter
 joblib
 scikit-learn
 streamlit-elements
-streamlit_shap
+streamlit-shap
+shap
+xgboost
