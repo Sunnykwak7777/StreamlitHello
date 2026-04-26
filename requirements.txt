@@ -10,3 +10,4 @@ streamlit-elements
 streamlit-shap
 shap
 xgboost
+matplotlib
