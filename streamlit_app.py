@@ -268,9 +268,9 @@ def load_data_a(url):
     df = pd.read_csv(url, encoding='UTF-8')
     return df
 
-a0 = time.time()
+a0 = time_module.time()
 st.write(load_data_a(csv_url))
-a1 = time.time()
+a1 = time_module.time()
 st.info(a1-a0)
 
 df = load_data_a(csv_url)
@@ -285,9 +285,9 @@ def load_data_b(url):
     df = pd.read_csv(url, encoding='UTF-8')
     return df
 
-b0 = time.time()
+b0 = time_module.time()
 st.write(load_data_b(csv_url))
-b1 = time.time()
+b1 = time_module.time()
 st.info(b1-b0)
 
 # API로 대시보드 띄우기 - 
@@ -407,7 +407,7 @@ st.write("st.session_state 객체:", st.session_state)
 st.header("데이터 처리 진행 상황")
 st.write("데이터를 불러옵니다...")
 with st.spinner("잠시만 기다려 주세요...") :
-    time.sleep(5)
+    time_module.sleep(5)
 st.success("데이타로딩 완료!")
 
 with st.spinner("전체 작업 진행중..."):
@@ -415,7 +415,7 @@ with st.spinner("전체 작업 진행중..."):
     status_text = st.empty()  #텍스트 덮어쓰기 용 공간확보
     for i in range(5):
         status_text.write(f"       Step {i+1}/5 : 데이터 준비중...   ")
-        time.sleep(1)
+        time_module.sleep(1)
         progress.progress((i+1)*20)
 st.success("처리가 모두 끝났습니다")
         
