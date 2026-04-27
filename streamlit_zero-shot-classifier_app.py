@@ -157,7 +157,10 @@ def main():
 
 if selected == "Demo (5 phrases max)":
 
-    API_KEY = st.secrets.get("API_KEY", "")
+    try:
+        API_KEY = st.secrets["API_KEY"]
+    except Exception:
+        API_KEY = ""
     if not API_KEY:
         st.warning("⚠️ HuggingFace API 키가 설정되지 않았습니다.  \n"
                    "`.streamlit/secrets.toml` 파일에 `API_KEY = \"your_key\"`를 입력하거나,  \n"
