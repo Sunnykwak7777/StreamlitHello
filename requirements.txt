@@ -8,9 +8,9 @@ joblib
 scikit-learn
 streamlit-elements
 streamlit-shap
-shap
-xgboost
-matplotlib
 streamlit-option-menu
 streamlit-tags
 streamlit-aggrid
+shap
+xgboost
+matplotlib
