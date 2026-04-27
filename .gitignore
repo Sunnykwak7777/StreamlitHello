@@ -1,0 +1,11 @@
+# Secrets - API 키 등 민감 정보 (절대 GitHub에 올리면 안 됨)
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Database & model files
+*.db
+*.pkl
