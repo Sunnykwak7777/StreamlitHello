@@ -168,8 +168,11 @@ if selected == "Demo (5 phrases max)":
                    "API 키는 https://huggingface.co/settings/tokens 에서 발급받을 수 있습니다.")
         st.stop()
 
+    # 2026-04-28 API_URL = (
+    # 2026-04-28     "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
+    # 2026-04-28 )
     API_URL = (
-        "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
+        "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
     )
 
     headers = {"Authorization": f"Bearer {API_KEY}"}
@@ -365,8 +368,11 @@ elif selected == "Unlocked Mode":
             help="Once you created you HuggiginFace account, you can get your free API token in your settings page: https://huggingface.co/settings/tokens",
         )
 
+        # 2026-04-28 API_URL = (
+        # 2026-04-28     "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
+        # 2026-04-28 )
         API_URL = (
-            "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
+            "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
         )
 
         headers = {"Authorization": f"Bearer {API_KEY2}"}
