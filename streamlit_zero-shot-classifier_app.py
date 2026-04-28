@@ -300,7 +300,8 @@ if selected == "Demo (5 phrases max)":
 
         st.success("✅ Done!")
 
-        df = pd.DataFrame.from_dict(listToAppend)
+        # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)  # 리스트of딕셔너리에 쓰면 정수 컬럼 생성 → KeyError
+        df = pd.DataFrame(listToAppend)
 
         st.caption("")
         st.markdown("### Check classifier results")
@@ -507,7 +508,8 @@ elif selected == "Unlocked Mode":
 
             st.success("✅ Done!")
 
-            df = pd.DataFrame.from_dict(listToAppend)
+            # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)  # 리스트of딕셔너리에 쓰면 정수 컬럼 생성 → KeyError
+            df = pd.DataFrame(listToAppend)
 
             st.caption("")
             st.markdown("### Check classifier results")
