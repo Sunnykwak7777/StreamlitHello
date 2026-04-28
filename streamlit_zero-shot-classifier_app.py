@@ -379,6 +379,17 @@ if selected == "Demo (5 phrases max)":
                 mime="text/csv",
             )
 
+        # 2026-04-28 - 표 display Start
+        st.markdown("---")
+        st.markdown("### 📊 분류 결과 표")
+        display_df = df.copy()
+        display_df.index = range(1, len(display_df) + 1)
+        st.dataframe(
+            display_df,
+            use_container_width=True,
+        )
+        # 2026-04-28 - 표 display End
+
 elif selected == "Unlocked Mode":
 
     with st.form(key="my_form"):
@@ -597,6 +608,17 @@ elif selected == "Unlocked Mode":
                     file_name="results.csv",
                     mime="text/csv",
                 )
+
+            # 2026-04-28 - 표 display Start
+            st.markdown("---")
+            st.markdown("### 📊 분류 결과 표")
+            display_df = df.copy()
+            display_df.index = range(1, len(display_df) + 1)
+            st.dataframe(
+                display_df,
+                use_container_width=True,
+            )
+            # 2026-04-28 - 표 display End
 
         except ValueError as ve:
 
