@@ -296,7 +296,7 @@ if selected == "Demo (5 phrases max)":
             if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
                 output2 = output2[0]
             listToAppend.append(output2)
-            df = pd.DataFrame.from_dict(output2)
+            # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)  # 루프 직후에 덮어쓰이는 불필요한 코드 + 스칼라값 오류 발생
 
         st.success("✅ Done!")
 
@@ -503,7 +503,7 @@ elif selected == "Unlocked Mode":
                 if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
                     output2 = output2[0]
                 listToAppend.append(output2)
-                df = pd.DataFrame.from_dict(output2)
+                # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)  # 루프 직후에 덮어쓰이는 불필요한 코드 + 스칼라값 오류 발생
 
             st.success("✅ Done!")
 
