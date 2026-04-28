@@ -260,7 +260,18 @@ if selected == "Demo (5 phrases max)":
             response = requests.post(API_URL, headers=headers, json=payload)
             # Unhash to check status codes from the API response
             # st.write(response.status_code)
-            return response.json()
+            # return response.json()                        # 원본: JSON 파싱 오류 발생 가능
+            if response.status_code == 401:                # 추가: API 키 인증 실패
+                st.error("❌ API 키가 유효하지 않습니다.")
+                st.stop()
+            if response.status_code == 503:                # 추가: 모델 로딩 중
+                st.warning("⏳ 모델이 로딩 중입니다. 잠시 후 다시 시도하세요.")
+                st.stop()
+            try:                                           # 추가: JSON 파싱 안전하게 처리
+                return response.json()
+            except Exception:
+                st.error(f"❌ API 응답 오류 (HTTP {response.status_code}): {response.text[:300]}")
+                st.stop()
 
         listtest = ["I want a refund", "I have a question"]
         listToAppend = []
@@ -447,7 +458,18 @@ elif selected == "Unlocked Mode":
                 response = requests.post(API_URL, headers=headers, json=payload)
                 # Unhash to check status codes from the API response
                 # st.write(response.status_code)
-                return response.json()
+                # return response.json()                        # 원본: JSON 파싱 오류 발생 가능
+                if response.status_code == 401:                # 추가: API 키 인증 실패
+                    st.error("❌ API 키가 유효하지 않습니다.")
+                    st.stop()
+                if response.status_code == 503:                # 추가: 모델 로딩 중
+                    st.warning("⏳ 모델이 로딩 중입니다. 잠시 후 다시 시도하세요.")
+                    st.stop()
+                try:                                           # 추가: JSON 파싱 안전하게 처리
+                    return response.json()
+                except Exception:
+                    st.error(f"❌ API 응답 오류 (HTTP {response.status_code}): {response.text[:300]}")
+                    st.stop()
 
             listtest = ["I want a refund", "I have a question"]
             listToAppend = []
