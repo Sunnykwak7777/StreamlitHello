@@ -293,14 +293,25 @@ if selected == "Demo (5 phrases max)":
 
             # 2026-04-28-v1 listToAppend.append(output2)
             # 2026-04-28-v1 df = pd.DataFrame.from_dict(output2)
-            if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
-                output2 = output2[0]
+            # 2026-04-28-v3 if isinstance(output2, list): output2 = output2[0]
+            # API 응답을 {"sequence","labels","scores"} 형태로 정규화
+            if isinstance(output2, list) and len(output2) > 0:
+                if "scores" not in output2[0]:
+                    # NLI 원시 포맷 [{"label":"ENTAILMENT","score":0.9},...] 변환
+                    labels = [d["label"] for d in output2]
+                    scores = [d["score"] for d in output2]
+                    output2 = {"sequence": row, "labels": labels, "scores": scores}
+                else:
+                    output2 = output2[0]
+            if not isinstance(output2, dict) or "scores" not in output2:
+                st.error(f"⚠️ 예상치 못한 API 응답입니다: {output2}")
+                st.stop()
             listToAppend.append(output2)
-            # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)  # 루프 직후에 덮어쓰이는 불필요한 코드 + 스칼라값 오류 발생
+            # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)
 
         st.success("✅ Done!")
 
-        # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)  # 리스트of딕셔너리에 쓰면 정수 컬럼 생성 → KeyError
+        # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)
         df = pd.DataFrame(listToAppend)
 
         st.caption("")
@@ -316,6 +327,7 @@ if selected == "Demo (5 phrases max)":
         st.caption("")
 
         # This is a list comprehension to convert the decimals to percentages
+        # 2026-04-28-v3 f = [[f"{x:.2%}" for x in row] for row in df["scores"]]
         f = [[f"{x:.2%}" for x in row] for row in df["scores"]]
 
         # This code is for re-integrating the labels back into the dataframe
@@ -501,14 +513,25 @@ elif selected == "Unlocked Mode":
 
                 # 2026-04-28-v1 listToAppend.append(output2)
                 # 2026-04-28-v1 df = pd.DataFrame.from_dict(output2)
-                if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
-                    output2 = output2[0]
+                # 2026-04-28-v3 if isinstance(output2, list): output2 = output2[0]
+                # API 응답을 {"sequence","labels","scores"} 형태로 정규화
+                if isinstance(output2, list) and len(output2) > 0:
+                    if "scores" not in output2[0]:
+                        # NLI 원시 포맷 [{"label":"ENTAILMENT","score":0.9},...] 변환
+                        labels = [d["label"] for d in output2]
+                        scores = [d["score"] for d in output2]
+                        output2 = {"sequence": row, "labels": labels, "scores": scores}
+                    else:
+                        output2 = output2[0]
+                if not isinstance(output2, dict) or "scores" not in output2:
+                    st.error(f"⚠️ 예상치 못한 API 응답입니다: {output2}")
+                    st.stop()
                 listToAppend.append(output2)
-                # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)  # 루프 직후에 덮어쓰이는 불필요한 코드 + 스칼라값 오류 발생
+                # 2026-04-28-v2 df = pd.DataFrame.from_dict(output2)
 
             st.success("✅ Done!")
 
-            # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)  # 리스트of딕셔너리에 쓰면 정수 컬럼 생성 → KeyError
+            # 2026-04-28-v3 df = pd.DataFrame.from_dict(listToAppend)
             df = pd.DataFrame(listToAppend)
 
             st.caption("")
@@ -522,6 +545,7 @@ elif selected == "Unlocked Mode":
             )
 
             # This is a list comprehension to convert the decimals to percentages
+            # 2026-04-28-v3 f = [[f"{x:.2%}" for x in row] for row in df["scores"]]
             f = [[f"{x:.2%}" for x in row] for row in df["scores"]]
 
             # This code is for re-integrating the labels back into the dataframe
