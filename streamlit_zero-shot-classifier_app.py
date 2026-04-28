@@ -171,8 +171,11 @@ if selected == "Demo (5 phrases max)":
     # 2026-04-28 API_URL = (
     # 2026-04-28     "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
     # 2026-04-28 )
+    # 2026-04-28 API_URL = (
+    # 2026-04-28     "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+    # 2026-04-28 )
     API_URL = (
-        "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+        "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
     )
 
     headers = {"Authorization": f"Bearer {API_KEY}"}
@@ -371,8 +374,11 @@ elif selected == "Unlocked Mode":
         # 2026-04-28 API_URL = (
         # 2026-04-28     "https://api-inference.huggingface.co/models/valhalla/distilbart-mnli-12-3"
         # 2026-04-28 )
+        # 2026-04-28 API_URL = (
+        # 2026-04-28     "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+        # 2026-04-28 )
         API_URL = (
-            "https://api-inference.huggingface.co/models/facebook/bart-large-mnli"
+            "https://router.huggingface.co/hf-inference/models/facebook/bart-large-mnli"
         )
 
         headers = {"Authorization": f"Bearer {API_KEY2}"}
