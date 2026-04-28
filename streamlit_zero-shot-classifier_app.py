@@ -291,8 +291,11 @@ if selected == "Demo (5 phrases max)":
                 }
             )
 
+            # 2026-04-28-v1 listToAppend.append(output2)
+            # 2026-04-28-v1 df = pd.DataFrame.from_dict(output2)
+            if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
+                output2 = output2[0]
             listToAppend.append(output2)
-
             df = pd.DataFrame.from_dict(output2)
 
         st.success("✅ Done!")
@@ -495,8 +498,11 @@ elif selected == "Unlocked Mode":
                     }
                 )
 
+                # 2026-04-28-v1 listToAppend.append(output2)
+                # 2026-04-28-v1 df = pd.DataFrame.from_dict(output2)
+                if isinstance(output2, list):  # 새 라우터는 결과를 리스트로 감싸서 반환
+                    output2 = output2[0]
                 listToAppend.append(output2)
-
                 df = pd.DataFrame.from_dict(output2)
 
             st.success("✅ Done!")
